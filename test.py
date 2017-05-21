@@ -74,7 +74,7 @@ class TestHRE(unittest.TestCase):
 
         ops = ['', 'I', 'L', 'M', 'S', 'U', 'X']
         ops_s = ['', FI, FL, FM, FS, FU, FX]
-        for i in xrange(1, 8):
+        for i in range(1, 8):
             for cop in combinations(ops, i):
                 my_re = RE('x')
                 flags = 0
@@ -243,7 +243,7 @@ class TestHRE(unittest.TestCase):
         any_match = any_re('abacaxi')
         self.assertEqual(any_match['x'], 'x')
         any_re = HR().any('srt', quantifier=2).U()
-        any_match = any_re(u'Pêssego')
+        any_match = any_re('Pêssego')
 
         any_re = HR() & A('xyz')
         any_match = any_re('abacate')
@@ -255,7 +255,7 @@ class TestHRE(unittest.TestCase):
         any_match = any_re('abacaxi')
         self.assertEqual(any_match['x'], 'x')
         any_re = HR() & A('srt', quantifier=2).U()
-        any_match = any_re(u'Pêssego')
+        any_match = any_re('Pêssego')
 
     def test_anything(self):
         anything_re = HR().then('@').anything(name='x').then('@')

@@ -1,4 +1,5 @@
 import re
+from functools import reduce
 
 __title__ = 'HumanRegex'
 __version__ = '0.1.4'
@@ -112,7 +113,7 @@ class HumanRegex(str):
         quantifier = kwargs.pop('quantifier', None)
         r = []
         for arg in args:
-            if isinstance(arg, basestring):
+            if isinstance(arg, str):
                 r.append(self.escape(arg))
             else:
                 r.append("-".join(arg))
@@ -122,7 +123,7 @@ class HumanRegex(str):
         name = kwargs.pop('name', None)
         r = []
         for arg in args:
-            if isinstance(arg, basestring):
+            if isinstance(arg, str):
                 r.append(self.escape(arg))
             else:
                 r.append("-".join(arg))
@@ -183,11 +184,11 @@ class HumanRegex(str):
         return self
     M = multiline
 
-    def unicode(self, enable=True):
+    def str(self, enable=True):
         self._unicode = enable
         return self
 
-    def U(self, enable=True): return self.unicode(enable)
+    def U(self, enable=True): return self.str(enable)
 
     def verbose(self, enable=True):
         self._verbose = enable
@@ -310,7 +311,7 @@ class Flags(set):
         return super(Flags, self).__and__(other)
 
     def __int__(self):
-        return reduce(int.__or__, map(int, self or [0]))
+        return reduce(int.__or__, list(map(int, self or [0])))
 
 
 class Flag(object):
@@ -368,7 +369,7 @@ class FM(Flag):
 
 
 class FU(Flag):
-    f = HR.unicode
+    f = HR.str
     v = re.U
 
 
